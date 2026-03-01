@@ -1,0 +1,50 @@
+How to Deploy an Update
+========================
+
+The PDF Viewer & Editor app has built-in auto-update functionality.
+When the app starts, it checks the "updates" folder for new versions.
+
+Steps to Deploy an Update:
+---------------------------
+
+1. Create the updates folder structure:
+   updates/
+   └── src/
+       └── [your updated .java files]
+   └── version.txt
+
+2. Put your updated Java source files in updates/src/
+   - Only include files that have changed
+   - Or include all files for a complete update
+
+3. Create updates/version.txt with the new version number
+   Example content: 1.5
+
+4. When users run the app, they'll see:
+   "New version 1.5 is available!
+    Current version: 1.0
+    Do you want to update now?"
+
+5. If they click Yes:
+   - Current files are backed up to backup/src/
+   - New files are copied from updates/src/ to src/
+   - version.txt is updated
+   - App recompiles and restarts automatically
+
+Important Notes:
+----------------
+- The app automatically backs up files before updating
+- Updates are installed by copying source files and recompiling
+- The app restarts automatically after update
+- Works with the run.sh/run.bat scripts
+
+Example Update Scenario:
+------------------------
+Current version: 1.0
+You want to release version 1.5 with bug fixes
+
+1. mkdir -p updates/src
+2. cp src/PDFViewerApp.java updates/src/  (your fixed version)
+3. echo "1.5" > updates/version.txt
+4. Users run ./run.sh and get prompted to update
+5. They click Yes, files update, app restarts with version 1.5
